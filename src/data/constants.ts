@@ -91,9 +91,9 @@ export const contactInfo = {
 };
 
 export const mockCertificates = [
-  { number: "HRDS2025001", name: "Mahajan", course: "Digital Marketing", issued: "2025-01-15" },
-  { number: "HRDS2025002", name: "Mahajan", course: "Web Development", issued: "2025-02-20" },
-  { number: "HRDS2025003", name: "Mahajan", course: "Data Science", issued: "2025-03-10" }
+  { id:1, certificate_number: "12880", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Digital Marketing", issued: "2025-01-15" },
+  { id:2, certificate_number: "12881", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Web Development", issued: "2025-02-20" },
+  { id:3, certificate_number: "12882", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Data Science", issued: "2025-03-10" }
 ];
 
 

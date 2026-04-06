@@ -1,85 +1,140 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, GraduationCap } from 'lucide-react';
-import { navigationItems } from '../data/constants';
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ChevronDown, Menu, X, GraduationCap } from "lucide-react";
+import { navigationItems } from "../data/constants";
 
 const Navigation: React.FC = () => {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close dropdown on outside click + ESC
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     }
+
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsDropdownOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    window.addEventListener('keydown', handleKeyDown);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
+  // Close dropdown on route change
   useEffect(() => {
     setIsDropdownOpen(false);
+    setIsMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Add shadow on scroll
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleInstituteClick = (url: string) => {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
     setIsDropdownOpen(false);
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav
+      className="sticky top-0 z-50 backdrop-blur"
+      style={{
+        background: "rgba(255,255,255,0.85)",
+        borderBottom: "1px solid #ece9e0",
+        boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          
           {/* Logo */}
-          <div onClick={() => window.location.href = "/"} className="flex items-center space-x-3">
-            <GraduationCap className="h-8 w-8 text-blue-700" />
-            <span className="text-xl font-bold text-gray-900">HRDS</span>
+          <div
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center space-x-3 cursor-pointer"
+          >
+            <GraduationCap className="h-8 w-8" style={{ color: "#c47f00" }} />
+            <span
+              className="text-xl font-bold"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                color: "#12113a",
+              }}
+            >
+              HRDS
+            </span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navigationItems.map((item) => (
               <div key={item.label} className="relative">
+                
+                {/* Dropdown */}
                 {item.dropdown ? (
                   <div className="relative" ref={dropdownRef}>
                     <button
                       onClick={handleDropdownToggle}
-                      className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                      className={`flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         location.pathname === item.path
-                          ? 'text-blue-700 bg-blue-50'
-                          : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
+                          ? "bg-[#fff4cc] text-[#c47f00]"
+                          : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          isDropdownOpen ? "rotate-180" : ""
+                        }`}
+                      />
                     </button>
-                    
+
                     {isDropdownOpen && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="py-1">
+                      <div
+                        className="absolute right-0 mt-2 w-52 rounded-xl shadow-lg"
+                        style={{
+                          background: "#ffffff",
+                          border: "1px solid #ece9e0",
+                        }}
+                      >
+                        <div className="py-2">
                           {item.dropdown.map((dropdownItem) => (
                             <button
                               key={dropdownItem.label}
-                              onClick={() => {
-                                handleInstituteClick(dropdownItem.path);
-                                setIsMobileMenuOpen(false);
-                              }}
-                              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-700 transition-colors duration-200"
+                              onClick={() =>
+                                handleInstituteClick(dropdownItem.path)
+                              }
+                              className="block w-full text-left px-4 py-2 text-sm rounded-lg transition-all duration-200"
+                              style={{ color: "#5a5a72" }}
+                              onMouseEnter={(e) =>
+                                (e.currentTarget.style.background = "#fff8e6")
+                              }
+                              onMouseLeave={(e) =>
+                                (e.currentTarget.style.background =
+                                  "transparent")
+                              }
                             >
                               {dropdownItem.label}
                             </button>
@@ -89,12 +144,13 @@ const Navigation: React.FC = () => {
                     )}
                   </div>
                 ) : (
+                  
                   <Link
                     to={item.path}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       location.pathname === item.path
-                        ? 'text-blue-700 bg-blue-50'
-                        : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
+                        ? "bg-[#fff4cc] text-[#c47f00]"
+                        : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
                     }`}
                   >
                     {item.label}
@@ -104,54 +160,75 @@ const Navigation: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-blue-700 hover:bg-gray-50"
+              className="p-2 rounded-lg"
+              style={{ color: "#12113a" }}
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div
+            className="md:hidden border-t"
+            style={{
+              borderColor: "#ece9e0",
+              background: "#ffffff",
+            }}
+          >
+            <div className="px-2 py-3 space-y-2">
               {navigationItems.map((item) => (
                 <div key={item.label}>
+                  
                   {item.dropdown ? (
-                    <div>
+                    <>
                       <button
                         onClick={handleDropdownToggle}
-                        className="flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-700 hover:bg-gray-50"
+                        className="flex items-center justify-between w-full px-4 py-2 rounded-lg text-base font-medium"
+                        style={{ color: "#5a5a72" }}
                       >
                         <span>{item.label}</span>
-                        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${
+                            isDropdownOpen ? "rotate-180" : ""
+                          }`}
+                        />
                       </button>
+
                       {isDropdownOpen && (
                         <div className="pl-4 space-y-1">
                           {item.dropdown.map((dropdownItem) => (
                             <button
                               key={dropdownItem.label}
-                              onClick={() => handleInstituteClick(dropdownItem.path)}
-                              className="block w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-700 hover:bg-gray-50"
+                              onClick={() =>
+                                handleInstituteClick(dropdownItem.path)
+                              }
+                              className="block w-full text-left px-3 py-2 text-sm rounded-lg"
+                              style={{ color: "#5a5a72" }}
                             >
                               {dropdownItem.label}
                             </button>
                           ))}
                         </div>
                       )}
-                    </div>
+                    </>
                   ) : (
                     <Link
                       to={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                      className={`block px-4 py-2 rounded-lg text-base font-medium transition-all ${
                         location.pathname === item.path
-                          ? 'text-blue-700 bg-blue-50'
-                          : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'
+                          ? "bg-[#fff4cc] text-[#c47f00]"
+                          : "text-[#5a5a72]"
                       }`}
                     >
                       {item.label}
