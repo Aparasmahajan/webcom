@@ -15,7 +15,7 @@ export const navigationItems = [
 export const newsItems = [
   {
     id: 1,
-    title: "HRDS Announces New Educational Initiatives for 2025",
+    title: "Webcom Announces New Educational Initiatives for 2025",
     description: "We are proud to launch comprehensive skill development programs aimed at empowering students and professionals across various domains.",
     image: "https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?auto=compress&cs=tinysrgb&w=800",
     backgroundColor: "#1E40AF",
@@ -26,7 +26,7 @@ export const newsItems = [
   {
     id: 2,
     // title: "Excellence in Education Awards 2024",
-    // description: "HRDS recognizes outstanding achievements in education and community development. Join us in celebrating academic excellence.",
+    // description: "Webcom recognizes outstanding achievements in education and community development. Join us in celebrating academic excellence.",
     image: "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800",
     backgroundColor: "#059669",
     titleTextColor: "#FFFFFF",
@@ -46,9 +46,9 @@ export const newsItems = [
 ];
 
 export const aboutUsData = {
-  history: `The Human Resource and Development Society (HRDS) was established in 2003 with a vision to create meaningful impact in education and community development. Over the past decade, we have worked tirelessly to bridge the gap between traditional education and modern skill requirements.
+  history: `The Human Resource and Development Society (Webcom) was established in 2003 with a vision to create meaningful impact in education and community development. Over the past decade, we have worked tirelessly to bridge the gap between traditional education and modern skill requirements.
 
-Our journey began with a small group of dedicated educators and professionals who believed in the transformative power of quality education. Today, HRDS stands as a beacon of excellence, having touched thousands of lives through our various educational initiatives, skill development programs, and community outreach efforts.
+Our journey began with a small group of dedicated educators and professionals who believed in the transformative power of quality education. Today, Webcom stands as a beacon of excellence, having touched thousands of lives through our various educational initiatives, skill development programs, and community outreach efforts.
 
 We continue to evolve and adapt to meet the changing needs of society, always keeping our core mission at the heart of everything we do: empowering individuals through education and fostering sustainable community development.`,
   
@@ -57,7 +57,7 @@ We continue to evolve and adapt to meet the changing needs of society, always ke
       position: "President",
       name: "Mr. Anoop Mahajan",
       // image: "",
-      description: "Leading HRDS with over 20 years of experience in educational administration."
+      description: "Leading Webcom with over 20 years of experience in educational administration."
     },
     {
       position: "Cashier",

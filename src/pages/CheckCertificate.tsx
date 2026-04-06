@@ -80,7 +80,7 @@ const CheckCertificate: React.FC = () => {
               value={certificateNumber}
               onChange={e => setCertificateNumber(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="e.g. HRDS2024001"
+              placeholder="e.g. Webcom2024001"
               className="flex-1 px-4 py-3 rounded-lg text-sm outline-none transition-all duration-200"
               style={{
                 border: '1.5px solid #d0cdc2',

@@ -18,7 +18,7 @@ const About: React.FC = () => {
             className="text-4xl md:text-5xl font-bold mb-5"
             style={{ fontFamily: "'Playfair Display', serif", color: '#12113a' }}
           >
-            About HRDS
+            About Webcom Technologies
           </h1>
           <p className="text-lg text-gray-500 max-w-3xl mx-auto leading-relaxed">
             Webcom Technologies, Batala is a leading educational institute dedicated to providing quality

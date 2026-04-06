@@ -83,7 +83,7 @@ const Navigation: React.FC = () => {
                 color: "#12113a",
               }}
             >
-              HRDS
+              Webcom
             </span>
           </div>
 

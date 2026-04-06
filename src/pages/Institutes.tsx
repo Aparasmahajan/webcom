@@ -31,7 +31,7 @@ const Institutes: React.FC = () => {
             Our Institutes
           </h1>
           <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
-            Explore the educational institutions affiliated with HRDS, providing quality education
+            Explore the educational institutions affiliated with Webcom, providing quality education
             and skill development.
           </p>
         </div>
