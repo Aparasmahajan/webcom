@@ -6,7 +6,7 @@ export const navigationItems = [
     label: 'Our Programs', 
     path: '/programs',
     dropdown: [
-      { label: 'Bachelor’s Degrees', path: '/institute' }
+      { label: 'Bachelor’s Degrees', path: '/programs/bachelors' }
     ]
   },
   { label: 'Contact Us', path: '/contact' }
@@ -81,8 +81,8 @@ We continue to evolve and adapt to meet the changing needs of society, always ke
 };
 
 export const contactInfo = {
-  address: "Batala",
-  mobile: "+91 9999999999",
+  address: "Master Market, opposite Eye Hospital O/S, Khajuri Gate, Batala, Punjab 143505",
+  mobile: "+91 78141 92670",
   email: "apex@gmail.com",
   mapCoordinates: {
     lat: 30.7900,

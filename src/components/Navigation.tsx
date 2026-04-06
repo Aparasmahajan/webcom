@@ -69,7 +69,6 @@ const Navigation: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          
           {/* Logo */}
           <div
             onClick={() => (window.location.href = "/")}
@@ -90,71 +89,50 @@ const Navigation: React.FC = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {navigationItems.map((item) => (
-              <div key={item.label} className="relative">
-                
-                {/* Dropdown */}
-                {item.dropdown ? (
-                  <div className="relative" ref={dropdownRef}>
-                    <button
-                      onClick={handleDropdownToggle}
-                      className={`flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        location.pathname === item.path
-                          ? "bg-[#fff4cc] text-[#c47f00]"
-                          : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          isDropdownOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
+              <div key={item.label} className="relative group">
+                {/* Parent → navigation */}
+                <Link
+                  to={item.path}
+                  className={`flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    location.pathname === item.path
+                      ? "bg-[#fff4cc] text-[#c47f00]"
+                      : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {item.dropdown && (
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                  )}
+                </Link>
 
-                    {isDropdownOpen && (
-                      <div
-                        className="absolute right-0 mt-2 w-52 rounded-xl shadow-lg"
-                        style={{
-                          background: "#ffffff",
-                          border: "1px solid #ece9e0",
-                        }}
-                      >
-                        <div className="py-2">
-                          {item.dropdown.map((dropdownItem) => (
-                            <button
-                              key={dropdownItem.label}
-                              onClick={() =>
-                                handleInstituteClick(dropdownItem.path)
-                              }
-                              className="block w-full text-left px-4 py-2 text-sm rounded-lg transition-all duration-200"
-                              style={{ color: "#5a5a72" }}
-                              onMouseEnter={(e) =>
-                                (e.currentTarget.style.background = "#fff8e6")
-                              }
-                              onMouseLeave={(e) =>
-                                (e.currentTarget.style.background =
-                                  "transparent")
-                              }
-                            >
-                              {dropdownItem.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  
-                  <Link
-                    to={item.path}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      location.pathname === item.path
-                        ? "bg-[#fff4cc] text-[#c47f00]"
-                        : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
-                    }`}
+                {/* Dropdown */}
+                {item.dropdown && (
+                  <div
+                    className="absolute right-0 mt-2 w-52 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
+                    style={{
+                      background: "#ffffff",
+                      border: "1px solid #ece9e0",
+                    }}
                   >
-                    {item.label}
-                  </Link>
+                    <div className="py-2">
+                      {item.dropdown.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.label}
+                          to={dropdownItem.path}
+                          className="block px-4 py-2 text-sm rounded-lg transition-all duration-200"
+                          style={{ color: "#5a5a72" }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.background = "#fff8e6")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.background = "transparent")
+                          }
+                        >
+                          {dropdownItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             ))}
@@ -186,57 +164,76 @@ const Navigation: React.FC = () => {
             }}
           >
             <div className="px-2 py-3 space-y-2">
-              {navigationItems.map((item) => (
-                <div key={item.label}>
-                  
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        onClick={handleDropdownToggle}
-                        className="flex items-center justify-between w-full px-4 py-2 rounded-lg text-base font-medium"
-                        style={{ color: "#5a5a72" }}
-                      >
-                        <span>{item.label}</span>
-                        <ChevronDown
-                          className={`h-4 w-4 transition-transform ${
-                            isDropdownOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
+  {navigationItems.map((item) => (
+    <div key={item.label}>
+      
+      {item.dropdown ? (
+        <>
+          {/* Parent row */}
+          <div className="flex items-center justify-between w-full">
+            
+            {/* LEFT → Navigation */}
+            <Link
+              to={item.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex-1 px-4 py-2 rounded-lg text-base font-medium ${
+                location.pathname === item.path
+                  ? "bg-[#fff4cc] text-[#c47f00]"
+                  : "text-[#5a5a72]"
+              }`}
+            >
+              {item.label}
+            </Link>
 
-                      {isDropdownOpen && (
-                        <div className="pl-4 space-y-1">
-                          {item.dropdown.map((dropdownItem) => (
-                            <button
-                              key={dropdownItem.label}
-                              onClick={() =>
-                                handleInstituteClick(dropdownItem.path)
-                              }
-                              className="block w-full text-left px-3 py-2 text-sm rounded-lg"
-                              style={{ color: "#5a5a72" }}
-                            >
-                              {dropdownItem.label}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-2 rounded-lg text-base font-medium transition-all ${
-                        location.pathname === item.path
-                          ? "bg-[#fff4cc] text-[#c47f00]"
-                          : "text-[#5a5a72]"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </div>
+            {/* RIGHT → Toggle */}
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="px-4 py-2"
+            >
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${
+                  isDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Dropdown */}
+          {isDropdownOpen && (
+            <div className="pl-4 space-y-1">
+              {item.dropdown.map((dropdownItem) => (
+                <Link
+                  key={dropdownItem.label}
+                  to={dropdownItem.path}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsDropdownOpen(false);
+                  }}
+                  className="block px-3 py-2 text-sm rounded-lg"
+                  style={{ color: "#5a5a72" }}
+                >
+                  {dropdownItem.label}
+                </Link>
               ))}
             </div>
+          )}
+        </>
+      ) : (
+        <Link
+          to={item.path}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className={`block px-4 py-2 rounded-lg text-base font-medium transition-all ${
+            location.pathname === item.path
+              ? "bg-[#fff4cc] text-[#c47f00]"
+              : "text-[#5a5a72]"
+          }`}
+        >
+          {item.label}
+        </Link>
+      )}
+    </div>
+  ))}
+</div>
           </div>
         )}
       </div>
