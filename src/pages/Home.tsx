@@ -1,13 +1,7 @@
 import React from 'react';
 import { GraduationCap, Users, Award, Lightbulb, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
-
-const stats = [
-  { num: '500+', label: 'Students trained' },
-  { num: '12+', label: 'Programs offered' },
-  { num: '95%', label: 'Placement rate' },
-  { num: '8+', label: 'Years of excellence' },
-];
+import {stats} from '../data/constants'
 
 const features = [
   {
