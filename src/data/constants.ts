@@ -107,7 +107,8 @@ export const mockCertificates = [
   { id:1, certificate_number: "12880", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Digital Marketing", issued: "2025-01-15" },
   { id:2, certificate_number: "12881", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Web Development", issued: "2025-02-20" },
   { id:3, certificate_number: "12882", name: "Mahajan", father_name:"Mahajan", duration: "6 month", join_date: "02-01-2024",complete_date: "02-01-2024", course: "Data Science", issued: "2025-03-10" },
-  { id:3, certificate_number: "5544", name: "Harjeet Kaur", father_name:"Parkash Singh", duration: "6 month", join_date: "01-01-2023",complete_date: "30-06-2023", course: "Diploma in Office Productivity and Application", issued: "2023-07-03" }
+  { id:4, certificate_number: "5544", name: "Harjeet Kaur", father_name:"Parkash Singh", duration: "6 month", join_date: "01-01-2023",complete_date: "30-06-2023", course: "Diploma in Office Productivity and Application", issued: "2023-07-03" },
+  { id:5, certificate_number: "13008", name: "Raghav Suri", father_name:"Tarun Suri", duration: "1 year", join_date: "14-04-2025",complete_date: "13-04-2026", course: "DCA", issued: "20-04-2026" }
 ];
 
 
