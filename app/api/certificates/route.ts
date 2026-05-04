@@ -3,10 +3,19 @@ const SHEET_URL =
 
 type RawCertificate = Record<string, string | undefined>;
 
+const normalizeKey = (value: string) =>
+  value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 const pick = (row: RawCertificate, keys: string[]) => {
+  const normalizedRow = Object.fromEntries(
+    Object.entries(row).map(([key, value]) => [normalizeKey(key), value]),
+  );
+
   for (const key of keys) {
-    const value = row[key];
-    if (typeof value === "string" && value.trim()) return value.trim();
+    const value = normalizedRow[normalizeKey(key)];
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
   }
   return "";
 };
@@ -32,6 +41,7 @@ export async function GET() {
         "Certificate Number",
         "certificate number",
         "certificateNumber",
+        "certificate no",
       ]),
       name: pick(row, ["name", "Name", "student_name", "Student Name"]),
       father_name: pick(row, [
@@ -41,15 +51,31 @@ export async function GET() {
         "Father's Name",
       ]),
       duration: pick(row, ["duration", "Duration"]),
-      join_date: pick(row, ["join_date", "Join Date", "join date"]),
+      join_date: pick(row, [
+        "join_date",
+        "Join Date",
+        "join date",
+        "joining date",
+        "Joining Date",
+      ]),
       complete_date: pick(row, [
         "complete_date",
         "Complete Date",
         "complete date",
+        "completion date",
+        "Completion Date",
       ]),
-      course: pick(row, ["course", "Course"]),
-      issued: pick(row, ["issued", "Issued", "Issue Date", "issue_date"]),
-    }));
+      course: pick(row, ["course", "Course", "course name", "Course Name"]),
+      issued: pick(row, [
+        "issued",
+        "Issued",
+        "Issue Date",
+        "issue_date",
+        "issued date",
+        "Issued Date",
+      ]),
+    }))
+      .filter((row) => row.certificate_number);
 
     return Response.json(normalized);
   } catch {

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { GraduationCap, Users, Award, Lightbulb, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
 import { stats } from '../data/constants';
@@ -73,15 +74,17 @@ const Home: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
-            <button
+            <Link
+              href="/programs"
               className="flex items-center gap-2 px-7 py-3 rounded-lg font-medium text-white transition-all duration-200 hover:-translate-y-0.5"
               style={{ background: '#d4920a' }}
               onMouseEnter={e => (e.currentTarget.style.background = '#b87c06')}
               onMouseLeave={e => (e.currentTarget.style.background = '#d4920a')}
             >
               Get Involved <ArrowRight className="h-4 w-4" />
-            </button>
-            <button
+            </Link>
+            <Link
+              href="/programs"
               className="px-7 py-3 rounded-lg font-medium transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 background: 'transparent',
@@ -98,7 +101,7 @@ const Home: React.FC = () => {
               }}
             >
               Explore Programs
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -208,22 +211,24 @@ const Home: React.FC = () => {
             Be part of our mission to transform lives through education and community development.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <button
+            <Link
+              href="/programs"
               className="px-8 py-3 rounded-lg font-medium text-white transition-all duration-200"
               style={{ background: '#d4920a' }}
               onMouseEnter={e => (e.currentTarget.style.background = '#b87c06')}
               onMouseLeave={e => (e.currentTarget.style.background = '#d4920a')}
             >
               Apply Now
-            </button>
-            <button
+            </Link>
+            <Link
+              href="/programs"
               className="px-8 py-3 rounded-lg font-medium text-white transition-all duration-200"
               style={{ border: '1.5px solid rgba(255,255,255,0.25)', background: 'transparent' }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
             >
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
       </section>
