@@ -7,6 +7,7 @@ import { contactInfo } from "../data/constants";
 interface FormData {
   name: string;
   email: string;
+  phone: string;
   query: string;
 }
 
@@ -14,6 +15,7 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
+    phone: "",
     query: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -35,11 +37,32 @@ const Contact: React.FC = () => {
 
   const validateForm = (): boolean => {
     const newErrors: Partial<FormData> = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Please enter a valid email";
-    if (!formData.query.trim()) newErrors.query = "Query is required";
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.query.trim()) {
+      newErrors.query = "Query is required";
+    }
+
+    if (!formData.email.trim() && !formData.phone.trim()) {
+      newErrors.email = "Provide email or phone";
+      newErrors.phone = "Provide phone or email";
+    }
+
+    if (formData.email.trim()) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "Invalid email";
+      }
+    }
+
+    if (formData.phone.trim()) {
+      if (!/^[0-9]{10}$/.test(formData.phone)) {
+        newErrors.phone = "Invalid phone number";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -48,10 +71,25 @@ const Contact: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setErrors({});
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: Date.now(),
+          Name: formData.name,
+          "Phone Number": "",
+          Email: formData.email,
+          Query: formData.query,
+        }),
+      });
+      setFormData({ name: "", email: "", phone: "", query: "" });
+      setErrors({});
+      setShowSuccess(true);
+    } catch {
+      setShowError(true);
+    }
     setIsSubmitting(false);
-    setShowError(true);
   };
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -300,7 +338,25 @@ const Contact: React.FC = () => {
                   )}
                 </div>
               ))}
-
+              <div>
+                <label
+                  className="block text-xs font-semibold uppercase tracking-wide mb-1.5"
+                  style={{ color: "#9a9aaa" }}
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange("phone", e.target.value)}
+                  placeholder="Enter your phone number"
+                  className={inputClass("phone")}
+                  style={inputStyle("phone")}
+                />
+                {errors.phone && (
+                  <p className="text-xs mt-1 text-red-500">{errors.phone}</p>
+                )}
+              </div>
               <div>
                 <label
                   className="block text-xs font-semibold uppercase tracking-wide mb-1.5"

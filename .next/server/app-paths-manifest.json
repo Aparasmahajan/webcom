@@ -1,9 +1,8 @@
 {
-  "/api/news/route": "app/api/news/route.js",
-  "/api/certificates/route": "app/api/certificates/route.js",
+  "/api/enroll/route": "app/api/enroll/route.js",
   "/page": "app/page.js",
-  "/check-certificate/page": "app/check-certificate/page.js",
-  "/news/page": "app/news/page.js",
   "/programs/[[...slug]]/page": "app/programs/[[...slug]]/page.js",
-  "/about/page": "app/about/page.js"
+  "/contact/page": "app/contact/page.js",
+  "/about/page": "app/about/page.js",
+  "/check-certificate/page": "app/check-certificate/page.js"
 }

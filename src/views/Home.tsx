@@ -83,7 +83,7 @@ const Home: React.FC = () => {
             >
               Get Involved <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
+            {/* <Link
               href="/programs"
               className="px-7 py-3 rounded-lg font-medium transition-all duration-200 hover:-translate-y-0.5"
               style={{
@@ -101,7 +101,7 @@ const Home: React.FC = () => {
               }}
             >
               Explore Programs
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
@@ -221,7 +221,7 @@ const Home: React.FC = () => {
               Apply Now
             </Link>
             <Link
-              href="/programs"
+              href="/contact"
               className="px-8 py-3 rounded-lg font-medium text-white transition-all duration-200"
               style={{ border: '1.5px solid rgba(255,255,255,0.25)', background: 'transparent' }}
               onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
