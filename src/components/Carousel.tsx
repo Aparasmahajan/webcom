@@ -1,6 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { newsItems } from '../data/constants';
+import React from 'react';
 
 const Carousel: React.FC = () => {
   return null;

@@ -1,18 +1,23 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
-import { GraduationCap } from "lucide-react";
 
-const Layout: React.FC = () => {
-  const location = useLocation();
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     const timeout = setTimeout(() => setIsLoading(false), 100);
     return () => clearTimeout(timeout);
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <div
@@ -45,12 +50,10 @@ const Layout: React.FC = () => {
           </div>
         )}
 
-        <Outlet />
+        {children}
       </main>
 
       <Footer />
-
-      
     </div>
   );
 };

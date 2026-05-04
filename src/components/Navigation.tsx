@@ -1,10 +1,13 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, GraduationCap } from "lucide-react";
 import { navigationItems } from "../data/constants";
 
 const Navigation: React.FC = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSubDropdownOpen, setIsSubDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +35,7 @@ const Navigation: React.FC = () => {
     setIsDropdownOpen(false);
     setIsSubDropdownOpen(false);
     setIsMobileMenuOpen(false);
-  }, [location.pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -40,7 +43,6 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close sub-dropdown when parent dropdown closes
   useEffect(() => {
     if (!isDropdownOpen) setIsSubDropdownOpen(false);
   }, [isDropdownOpen]);
@@ -56,12 +58,7 @@ const Navigation: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-
-          {/* Logo */}
-          <div
-            onClick={() => (window.location.href = "/")}
-            className="flex items-center space-x-3 cursor-pointer"
-          >
+          <Link href="/" className="flex items-center space-x-3 cursor-pointer">
             <GraduationCap className="h-8 w-8" style={{ color: "#c47f00" }} />
             <span
               className="text-xl font-bold"
@@ -69,16 +66,15 @@ const Navigation: React.FC = () => {
             >
               Webcom
             </span>
-          </div>
+          </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {navigationItems.map((item) => (
               <div key={item.label} className="relative group">
                 <Link
-                  to={item.path}
+                  href={item.path}
                   className={`flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    location.pathname === item.path
+                    pathname === item.path
                       ? "bg-[#fff4cc] text-[#c47f00]"
                       : "text-[#5a5a72] hover:text-[#12113a] hover:bg-[#f7f5f0]"
                   }`}
@@ -89,9 +85,9 @@ const Navigation: React.FC = () => {
                   )}
                 </Link>
 
-                {/* Level 2 dropdown */}
                 {item.dropdown && (
                   <div
+                    ref={dropdownRef}
                     className="absolute right-0 mt-2 w-52 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
                     style={{ background: "#ffffff", border: "1px solid #ece9e0" }}
                   >
@@ -99,7 +95,7 @@ const Navigation: React.FC = () => {
                       {item.dropdown.map((dropdownItem) => (
                         <div key={dropdownItem.label} className="relative group/sub">
                           <Link
-                            to={dropdownItem.path}
+                            href={dropdownItem.path}
                             className="flex items-center justify-between px-4 py-2 text-sm rounded-lg transition-all duration-200"
                             style={{ color: "#5a5a72" }}
                             onMouseEnter={(e) => (e.currentTarget.style.background = "#fff8e6")}
@@ -111,7 +107,6 @@ const Navigation: React.FC = () => {
                             )}
                           </Link>
 
-                          {/* Level 3 dropdown */}
                           {dropdownItem.dropdown && (
                             <div
                               className="absolute top-0 left-full ml-1 w-48 rounded-xl shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200"
@@ -121,7 +116,7 @@ const Navigation: React.FC = () => {
                                 {dropdownItem.dropdown.map((subItem) => (
                                   <Link
                                     key={subItem.label}
-                                    to={subItem.path}
+                                    href={subItem.path}
                                     className="block px-4 py-2 text-sm rounded-lg transition-all duration-200"
                                     style={{ color: "#5a5a72" }}
                                     onMouseEnter={(e) => (e.currentTarget.style.background = "#fff8e6")}
@@ -142,7 +137,6 @@ const Navigation: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile toggle button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -154,7 +148,6 @@ const Navigation: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Mobile Menu ── */}
         {isMobileMenuOpen && (
           <div
             className="md:hidden border-t"
@@ -165,15 +158,12 @@ const Navigation: React.FC = () => {
                 <div key={item.label}>
                   {item.dropdown ? (
                     <>
-                      {/* Level 1 row: link on left, chevron toggle on right */}
                       <div className="flex items-center justify-between rounded-lg overflow-hidden">
                         <Link
-                          to={item.path}
+                          href={item.path}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex-1 px-4 py-2.5 text-sm font-medium ${
-                            location.pathname === item.path
-                              ? "text-[#c47f00]"
-                              : "text-[#5a5a72]"
+                            pathname === item.path ? "text-[#c47f00]" : "text-[#5a5a72]"
                           }`}
                         >
                           {item.label}
@@ -191,15 +181,13 @@ const Navigation: React.FC = () => {
                         </button>
                       </div>
 
-                      {/* Level 2 items — only shown when isDropdownOpen */}
                       {isDropdownOpen && (
                         <div className="ml-4 mt-1 space-y-1">
                           {item.dropdown.map((dropdownItem) => (
                             <div key={dropdownItem.label}>
-                              {/* Level 2 row */}
                               <div className="flex items-center justify-between rounded-lg overflow-hidden">
                                 <Link
-                                  to={dropdownItem.path}
+                                  href={dropdownItem.path}
                                   onClick={() => setIsMobileMenuOpen(false)}
                                   className="flex-1 px-3 py-2 text-sm"
                                   style={{ color: "#5a5a72" }}
@@ -221,13 +209,12 @@ const Navigation: React.FC = () => {
                                 )}
                               </div>
 
-                              {/* Level 3 items — only shown when isSubDropdownOpen */}
                               {dropdownItem.dropdown && isSubDropdownOpen && (
                                 <div className="ml-4 mt-1 space-y-1">
                                   {dropdownItem.dropdown.map((subItem) => (
                                     <Link
                                       key={subItem.label}
-                                      to={subItem.path}
+                                      href={subItem.path}
                                       onClick={() => {
                                         setIsMobileMenuOpen(false);
                                         setIsDropdownOpen(false);
@@ -248,10 +235,10 @@ const Navigation: React.FC = () => {
                     </>
                   ) : (
                     <Link
-                      to={item.path}
+                      href={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                        location.pathname === item.path
+                        pathname === item.path
                           ? "bg-[#fff4cc] text-[#c47f00]"
                           : "text-[#5a5a72]"
                       }`}

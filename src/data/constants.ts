@@ -1,3 +1,16 @@
+interface NavigationItem {
+  label: string;
+  path: string;
+  dropdown?: NavigationItem[];
+}
+
+interface AboutUsMember {
+  position: string;
+  name: string;
+  image?: string;
+  description: string;
+}
+
 export const stats = [
   { num: '500+', label: 'Students trained' },
   { num: '12+', label: 'Programs offered' },
@@ -5,7 +18,7 @@ export const stats = [
   { num: '8+', label: 'Years of excellence' },
 ];
 
-export const navigationItems = [
+export const navigationItems: NavigationItem[] = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'Check Certificate', path: '/check-certificate' },
@@ -90,7 +103,7 @@ We continue to evolve and adapt to meet the changing needs of society, always ke
       // image: "",
       description: "Contributing expertise in research and development initiatives."
     }
-  ]
+  ] as AboutUsMember[]
 };
 
 export const contactInfo = {
