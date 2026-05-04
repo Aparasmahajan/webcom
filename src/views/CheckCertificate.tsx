@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, CheckCircle, XCircle, FileText } from "lucide-react";
-import { mockCertificates } from "../data/constants";
 
 // interface CertificateResult {
 //   found: boolean;
@@ -34,17 +33,51 @@ const CheckCertificate: React.FC = () => {
   const [certificateNumber, setCertificateNumber] = useState("");
   const [result, setResult] = useState<CertificateResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [loadError, setLoadError] = useState("");
 
   const handleCheck = async () => {
     if (!certificateNumber.trim()) return;
+
+    if (certificates.length === 0) {
+      setResult(null);
+      setLoadError("Certificate data is not available yet. Please try again.");
+      return;
+    }
+
     setIsLoading(true);
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const certificate = mockCertificates.find(
-      (cert) => cert.certificate_number === certificateNumber,
+
+    const certificate = certificates.find(
+      (cert) => cert.certificate_number.trim() === certificateNumber.trim(),
     );
+
     setResult(certificate ? { found: true, certificate } : { found: false });
+
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      try {
+        const res = await fetch("/api/certificates");
+
+        if (!res.ok) {
+          throw new Error(`API failed with status ${res.status}`);
+        }
+
+        const data = (await res.json()) as Certificate[];
+        setCertificates(data);
+        setLoadError("");
+      } catch (err) {
+        console.error("Error:", err);
+        setLoadError("Unable to load certificate data right now.");
+      }
+    };
+
+    fetchCertificates();
+  }, []);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") handleCheck();
@@ -137,6 +170,9 @@ const CheckCertificate: React.FC = () => {
               {isLoading ? "Checking..." : "Verify"}
             </button>
           </div>
+          {loadError && (
+            <p className="mt-3 text-sm text-red-500">{loadError}</p>
+          )}
         </div>
 
         {/* Result */}
