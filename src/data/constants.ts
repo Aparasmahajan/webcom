@@ -59,7 +59,107 @@ export const navigationItems: NavigationItem[] = [
       { label: 'PhD Programs',       path: '/programs/phd'       },
     ],
   },
+  { label: 'Our Services', path: '/services' },
   { label: 'Contact Us', path: '/contact' },
+];
+
+export interface ServiceProject {
+  name: string;
+  tagline: string;
+  category: string;
+  description: string;
+  features: string[];
+  icon: string;
+  gradient: string;
+  link?: string;
+}
+
+// Headline stats shown on the Our Services page.
+export const serviceStats = [
+  { num: '5+',    label: 'Live Products' },
+  { num: '3',     label: 'Industry Verticals' },
+  { num: 'Govt.', label: 'Sector Experience' },
+  { num: '100%',  label: 'Production Deployed' },
+];
+
+// Our main service / company site that the Services page links out to.
+export const mainServiceSite = 'https://365itsolution.com/';
+
+export const servicesData: ServiceProject[] = [
+  {
+    name: '#365 Exam Portal',
+    tagline: 'Smart recruitment & proctored assessments',
+    category: 'Enterprise SaaS',
+    description:
+      'End-to-end online examination platform built for recruiters and hiring teams. Send secure exam links to candidates in seconds — they take the test in-browser while you monitor results in real time.',
+    features: [
+      'One-click exam link sharing for recruiters',
+      'Live proctoring with 30-sec video clips per frame',
+      'Automated scoring & candidate analytics dashboard',
+    ],
+    icon: '📝',
+    gradient: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)',
+    link: 'https://exam-portal.365itsolution.com/adm',
+  },
+  {
+    name: 'SwiftCab',
+    tagline: 'On-demand ride-hailing at scale',
+    category: 'Mobility',
+    description:
+      'Full-featured cab booking platform on par with Rapido and Ola — real-time driver matching, live GPS tracking, fare estimation, and seamless payments for riders and fleet operators.',
+    features: [
+      'Real-time driver-rider matching',
+      'Live GPS tracking & route optimization',
+      'Multi-role apps for riders, drivers & admins',
+    ],
+    icon: '🚕',
+    gradient: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+  },
+  {
+    name: 'CodeXCave',
+    tagline: 'Interview-ready coding mastery',
+    category: 'EdTech',
+    description:
+      'A comprehensive coding learning platform with curated interview questions, hands-on challenges, structured courses, and progress tracking — built to help developers land their dream roles.',
+    features: [
+      'Curated coding interview question bank',
+      'Interactive coding challenges & courses',
+      'Skill tracking & performance analytics',
+    ],
+    icon: '💻',
+    gradient: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
+    link: 'https://www.codexcave.com/',
+  },
+  {
+    name: 'CCIL eOffice',
+    tagline: 'Digital file management for CCIL',
+    category: 'Government',
+    description:
+      'Enterprise-grade e-office system deployed for CCIL Ltd — digitizing internal workflows with secure file forwarding, approval chains, document tracking, and audit-ready records.',
+    features: [
+      'Digital file forwarding & routing',
+      'Multi-level approval workflows',
+      'Secure document lifecycle management',
+    ],
+    icon: '🏛️',
+    gradient: 'linear-gradient(135deg, #ea8a0a 0%, #d4690a 100%)',
+    link: 'https://eoffice.cciltd.in/',
+  },
+  {
+    name: 'ePI eOffice',
+    tagline: 'Government digital workflow platform',
+    category: 'Government',
+    description:
+      'Robust e-office solution for government institutions — streamlining correspondence, file movement, and inter-department collaboration with role-based access and compliance built in.',
+    features: [
+      'Paperless office automation',
+      'Role-based access & audit trails',
+      'Inter-department file collaboration',
+    ],
+    icon: '📋',
+    gradient: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
+    link: 'https://epieoffice.in/',
+  },
 ];
 
 export const newsItems = [
@@ -96,7 +196,7 @@ export const newsItems = [
 ];
 
 export const aboutUsData = {
-  history: `The Human Resource and Development Society (Webcom) was established in 2003 with a vision to create meaningful impact in education and community development. Over the past decade, we have worked tirelessly to bridge the gap between traditional education and modern skill requirements.
+  history: `Webcom was established in 2003 with a vision to create meaningful impact in education and community development. Over the past decade, we have worked tirelessly to bridge the gap between traditional education and modern skill requirements.
 
 Our journey began with a small group of dedicated educators and professionals who believed in the transformative power of quality education. Today, Webcom stands as a beacon of excellence, having touched thousands of lives through our various educational initiatives, skill development programs, and community outreach efforts.
 
@@ -109,18 +209,18 @@ We continue to evolve and adapt to meet the changing needs of society, always ke
       // image: "",
       description: "Leading Webcom with over 20 years of experience in educational administration."
     },
-    {
-      position: "Cashier",
-      name: "Mrs. Manu Mahajan",
-      // // image: "",
-      description: "Managing financial operations with precision and transparency."
-    },
-    {
-      position: "Member",
-      name: "Mr. Ashwani Lohtia",
-      // image: "",
-      description: "Contributing expertise in research and development initiatives."
-    },
+    // {
+    //   position: "Cashier",
+    //   name: "Mrs. Manu Mahajan",
+    //   // // image: "",
+    //   description: "Managing financial operations with precision and transparency."
+    // },
+    // {
+    //   position: "Member",
+    //   name: "Mr. Ashwani Lohtia",
+    //   // image: "",
+    //   description: "Contributing expertise in research and development initiatives."
+    // },
     {
       position: "Member",
       name: "Mrs. Indu Mahajan",

@@ -57,7 +57,7 @@ const Home: React.FC = () => {
             className="inline-block text-xs font-medium uppercase tracking-widest px-4 py-1.5 rounded-full mb-6"
             style={{ background: '#fff4cc', color: '#8a6200', border: '1px solid #f0d060' }}
           >
-            Batala's leading tech institute
+            India's leading tech and training institute
           </span>
 
           <h1

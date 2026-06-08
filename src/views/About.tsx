@@ -55,7 +55,7 @@ const About: React.FC = () => {
         </section>
 
         {/* Leadership */}
-        <section>
+        {/* <section>
           <div className="text-center mb-10">
             <span
               className="inline-block text-xs font-medium uppercase tracking-widest px-4 py-1.5 rounded-full mb-4"
@@ -115,7 +115,7 @@ const About: React.FC = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
